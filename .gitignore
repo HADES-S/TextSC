@@ -296,3 +296,7 @@ fabric.properties
 # modules.xml
 # .idea/misc.xml 
 # *.ipr
+
+#DataBase
+Config/*
+Source/InputParameter.txt
