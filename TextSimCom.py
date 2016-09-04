@@ -3,6 +3,3 @@
 import logging
 from extractComponent import extractTool
 
-
-extra = extractTool.extractText()
-extra.saveText()

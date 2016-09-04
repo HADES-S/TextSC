@@ -7,3 +7,4 @@
 #Description : 对语料库中的数据进行主题模型处理
 
 import gensim,os
+class LDA(object):

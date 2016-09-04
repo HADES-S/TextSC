@@ -299,4 +299,7 @@ fabric.properties
 
 #DataBase
 Config/*
+
+#Source
 Source/InputParameter.txt
+Nlpir/Data/*
