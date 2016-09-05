@@ -2,4 +2,6 @@
 # -*- coding:utf-8-*-
 import logging
 from extractComponent import extractTool
+from Topic import *
+
 
