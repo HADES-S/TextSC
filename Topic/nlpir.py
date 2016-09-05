@@ -6,10 +6,13 @@ Python Warpper for ICTCLAS2014
 Loading functions from Dynamic Link Library  directly.
 '''
 from ctypes import *
-
+import os
 #NLPIR2014 Lib File (NLPIR64, NLPIR32, libNLPIR64.so, libNLPIR32.so),
 #Change this when you are not using a Win64 environment:
-libFile = '../Nlpir/NLPIR.dll'
+project_path = os.getcwd()
+project_path = project_path[:project_path.find("TextSC")+6]
+
+libFile = project_path+'\\Nlpir\\NLPIR.dll'
 
 dll =  CDLL(libFile)
 def loadFun(exportName, restype, argtypes):
@@ -210,7 +213,7 @@ NWI_Complete = loadFun('NLPIR_NWI_Complete', c_bool, None)
 NWI_GetResult = loadFun('NLPIR_NWI_GetResult',c_char_p, [c_int])
 NWI_Result2UserDict = loadFun('NLPIR_NWI_Result2UserDict',c_uint, None)
 
-if not Init('../Nlpir/',ENCODING.UTF8_CODE,''):
+if not Init(project_path+'\\Nlpir\\',ENCODING.UTF8_CODE,''):
     print("Initialization failed!")
     exit(-111111)
 

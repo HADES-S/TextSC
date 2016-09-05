@@ -8,17 +8,22 @@
 
 import os
 from gensim import *
-import MyCorpora,logging
-logging.basicConfig(format='%(asctime)s : %(levelname)s : %(message)s', level=logging.INFO)
+import logging
+
+logging.basicConfig(format='%(asctime)s : %(levelname)s : %(message)s', level=logging.ERROR)
+project_path = os.getcwd()
+project_path = project_path[:project_path.find("TextSC")+6]
 
 class LDA(object):
     dictionary = None
     corpus = None
     tfidf_corpus =None
+    doc = None
     def __init__(self):
-        if(os.path.exists('..//Source//tmp//deerwester.dict')):
-            self.dictionary = corpora.Dictionary.load('..//Source//tmp//deerwester.dict')
-            self.corpus = corpora.MmCorpus('/tmp/deerwester.mm')
+        if(os.path.exists(project_path+'\\Source\\tmp\\deerwester.dict')):
+            self.dictionary = corpora.Dictionary.load(project_path+'\\Source\\tmp\\deerwester.dict')
+            self.corpus = corpora.MmCorpus(project_path+'\\Source\\tmp\\deerwester.mm')
+            self.TF()
             print("used files generated from first tutorial")
         else:
             print "something is wrong at the data set"
@@ -26,10 +31,12 @@ class LDA(object):
         #获取语料库的tf-idf向量
         tfidf = models.TfidfModel(corpus=self.corpus)
         self.tfidf_corpus=tfidf[self.corpus]
-    def LSI(self):
+    def CLSI(self):
         lsi = models.LsiModel(self.tfidf_corpus,id2word=self.dictionary,num_topics=200)
 
         ver_bow = self.dictionary.doc2bow(self.doc)
+        tfModel  =  models.TfidfModel(corpus=self.corpus)
+        ver_bow = tfModel[ver_bow]
         ver_lsi = lsi[ver_bow]
 
         index = similarities.MatrixSimilarity(lsi[self.corpus])
@@ -37,22 +44,25 @@ class LDA(object):
         sims = index[ver_lsi]
 
         sims = sorted(enumerate(sims), key=lambda item: -item[1])#相似度高低排序
+        print "LSI的结果输出"
+        return sims[:10]
 
-        print sims[:10]
+    def CLDA(self):
 
-    def LDA(self):
-
-        lda = models.LdaModel(cropus = self.tfidf_corpus,id2word=self.dictionary,num_topics=200,update_every=0,passes=20)
+        lda = models.LdaModel(corpus= self.tfidf_corpus,id2word=self.dictionary,num_topics=200,update_every=0,passes=20)
 
         doc_bow = self.dictionary.doc2bow(self.doc)
+
         doc_lda = lda[doc_bow]
+
         index = similarities.MatrixSimilarity(lda[self.corpus])
 
         sims = index[doc_lda]
 
         sims = sorted(enumerate(sims),key=lambda item:-item[1])
 
-        print sims[:10]
+        print "LDA的结果输出"
+        return sims[:10]
 
 
 

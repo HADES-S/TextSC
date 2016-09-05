@@ -1,10 +1,11 @@
 import unittest
-import Topic.MyCorpora
+import Topic
+
 
 class MyTestCase(unittest.TestCase):
     crop =None
     def setUp(self):
-        self.crop= Topic.MyCorpora.MyCorpora("InputParameter.txt","stopWords.txt")
+        self.crop= Topic.MyCorpora("InputParameter.txt","stopWords.txt")
 
     def test_document(self):
         document = self.crop.turnToList("InputParameter.txt")
