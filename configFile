@@ -1,0 +1,12 @@
+[config]
+
+wordBin = word.bin
+redis_host = 223.3.65.233
+redis_port = 6379
+redis_authenticate = kseredis
+redis_db = 1
+
+[source]
+
+sourcePath = './'
+stopWords = stopkey.txt

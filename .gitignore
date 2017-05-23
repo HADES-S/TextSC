@@ -295,3 +295,7 @@ fabric.properties
 # modules.xml
 # .idea/misc.xml 
 # *.ipr
+
+#personal
+myapp.log
+WordGeneration.log
