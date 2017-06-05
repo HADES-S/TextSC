@@ -63,14 +63,15 @@ def iter_find_files(path, fnexp):
     return allfile
 
 
-def get_document():
+def get_document(regex):
     """
     find all the document of the file
+    :param regex: find the correct format of the document 
     :return: document List
     """
     all_the_text = []
     documentcount = 0
-    allhtmlFile = iter_find_files(sourcePath, "第*.html")
+    allhtmlFile = iter_find_files(sourcePath,regex)
     logging.info('document_file_name_List: ')
     for fileName in allhtmlFile:
         logging.info(fileName.encode('gb2312'))
@@ -181,7 +182,7 @@ def main():
     model = gensim.models.Word2Vec.load(wordBin)
     sentence_array = []
     if model == None:
-        allList = get_document()
+        allList = get_document("第*.html")
         sentences = get_divide_word(allList)
         sentence_array = remove_stop_words(sentences)
         for sentence in sentence_array:
