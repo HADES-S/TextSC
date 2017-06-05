@@ -212,9 +212,9 @@ def main():
             segment.append(sentence_array[i][0].split(' '))
         model = gensim.models.Word2Vec(segment, min_count=1)
         model.save(wordBin)
-        model.similarity()
-    re = connect_redis()
-    save_word_to_redis(re,model)
+    model.similarity()
+    #re = connect_redis()
+    #save_word_to_redis(re,model)
 
 if __name__ == '__main__':
     main()
