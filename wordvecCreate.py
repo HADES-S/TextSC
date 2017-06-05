@@ -103,6 +103,22 @@ def remove_tag(htmltag):
         result.append(senten)
     return result
 
+def sub_sentence_list(paragraph):
+    """
+    leaf the html tag
+    :param paragraph:
+    :return:
+    """
+    pattern = "[\u4e00-\u9fa5[—_\-\"\'“”,，：:（）()、]\w]*(\.{3}|[\.。!！？?；;])"
+    compiledPattern = re.compile(pattern)
+    # print(sentence)
+    result = compiledPattern.findall(htmltag)
+    result = []
+    # 去除标注的部分
+    for part in result:
+        senten, num = re.subn('<.*?>', '', part)
+        result.append(senten)
+    return result
 
 def get_divide_word(alllist):
     """
@@ -114,7 +130,8 @@ def get_divide_word(alllist):
     resultList = []
     # result为章节和句子的二维数组
     for sentence in alllist:
-        usefulList = remove_tag(sentence)
+        #usefulList = remove_tag(sentence)
+        usefulList = sub_sentence_list(sentence)
         resultList.append(usefulList)
     Allsentence = []
     for chapter in resultList:
